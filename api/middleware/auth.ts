@@ -14,7 +14,7 @@ const auth = async (expressReq: Request, res: Response, next: NextFunction) => {
     const token = req.get('Authorization');
 
     if (!token) {
-        res.status(401).send({error: "No token present!"});
+        res.status(401).send({error: "You are not authorized!"});
         return;
     }
 

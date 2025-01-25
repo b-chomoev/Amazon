@@ -64,4 +64,27 @@ productsRouter.get('/:id', async (req, res, next) => {
         next(e);
     }
 });
+
+productsRouter.delete('/:id', auth, async (req, res, next) => {
+    const id = req.params.id;
+
+    if (!id) {
+        res.status(404).send('Not Found');
+        return;
+    }
+
+    try {
+        const deletedProduct = await Product.findByIdAndDelete(id);
+
+        if (!deletedProduct) {
+            res.status(404).send('Product Found');
+            return;
+        }
+
+        res.send('Product was deleted successfully');
+    } catch (e) {
+        next(e);
+    }
+});
+
 export default productsRouter;
