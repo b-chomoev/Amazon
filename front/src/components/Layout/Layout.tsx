@@ -1,5 +1,5 @@
 import React, { PropsWithChildren } from 'react';
-import Header from '../UI/Header/Header.tsx';
+import Header from '../UI/Header/Header';
 
 const Layout:React.FC<PropsWithChildren> = ({children}) => {
   return (

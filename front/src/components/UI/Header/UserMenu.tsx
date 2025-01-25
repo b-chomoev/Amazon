@@ -2,9 +2,9 @@ import { Button, Menu, MenuItem } from '@mui/material';
 import { IUser } from '../../../types';
 import React, { useState } from 'react';
 import { useAppDispatch } from '../../../app/hooks';
-import { unsetUser } from '../../../features/users/UsersSlice';
+import { unsetUser } from '../../../features/users/usersSlice';
 import { NavLink, useNavigate } from 'react-router-dom';
-import {logout} from '../../../features/users/UsersThunk';
+import {logout} from '../../../features/users/usersThunk';
 
 interface Props {
   user: IUser;
