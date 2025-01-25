@@ -34,7 +34,7 @@ const UserMenu: React.FC<Props> = ({user}) => {
       <Button
         onClick={handleClick}
         color="inherit">
-        Hello, {user.username}!
+        Hello, {user.displayname}!
       </Button>
       <Button variant="outlined" color={'inherit'} to={'/posts/addNewPost'} component={NavLink} sx={{margin: '0 20px'}}>Add new post</Button>
       <Button variant="outlined" color={'inherit'} onClick={handleLogout}>Logout</Button>
