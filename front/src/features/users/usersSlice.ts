@@ -26,7 +26,6 @@ export const selectRegisterError = (state: RootState) => state.users.registerErr
 export const selectLoginLoading = (state: RootState) => state.users.loginLoading;
 export const selectLoginError = (state: RootState) => state.users.loginError;
 
-
 export const usersSlice = createSlice({
   name: 'users',
   initialState,
@@ -49,6 +48,7 @@ export const usersSlice = createSlice({
         state.registerLoading = false;
         state.registerError = error || null;
       })
+
       .addCase(login.pending, (state) => {
         state.loginLoading = true;
         state.loginError = null;

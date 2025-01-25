@@ -36,7 +36,7 @@ const UserMenu: React.FC<Props> = ({user}) => {
         color="inherit">
         Hello, {user.displayname}!
       </Button>
-      <Button variant="outlined" color={'inherit'} to={'/posts/addNewPost'} component={NavLink} sx={{margin: '0 20px'}}>Add new post</Button>
+      <Button variant="outlined" color={'inherit'} to={'/products/addNewProduct'} component={NavLink} sx={{margin: '0 20px'}}>Add new post</Button>
       <Button variant="outlined" color={'inherit'} onClick={handleLogout}>Logout</Button>
       <Menu
         anchorEl={anchorEl}
