@@ -9,13 +9,16 @@ const ProductSchema = new Schema({
     },
     description: {
         type: String,
-        default: null,
+        required: true,
     },
     price: {
         type: Number,
         required: true,
     },
-    image: String,
+    image: {
+        type: String,
+        required: true,
+    },
     category: {
         type: String,
         required: true,
@@ -23,7 +26,7 @@ const ProductSchema = new Schema({
     seller: {
         type: Schema.Types.ObjectId,
         ref: 'User',
-        required: [true, 'Seller is required'],
+        required: true,
     }
 });
 

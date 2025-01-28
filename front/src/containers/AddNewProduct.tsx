@@ -14,7 +14,7 @@ const AddNewPost = () => {
 
   const onFormSubmit = async (product: ProductMutation) => {
     if (user !== null) {
-      await dispatch(createProduct({product, token: user.token}));
+      await dispatch(createProduct({product, token: user.token})).unwrap();
       navigate('/');
     }
   };

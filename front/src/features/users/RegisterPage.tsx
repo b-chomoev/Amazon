@@ -91,7 +91,7 @@ const RegisterPage = () => {
               value={form.password}
               onChange={inputChange}
               error={Boolean(getFiledError('password'))}
-              helperText={getFiledError('displayedname')}
+              helperText={getFiledError('password')}
             />
           </Grid>
           <Grid container direction={'column'} size={12} spacing={2} sx={{mt: 3,mb: 2}}>

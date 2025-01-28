@@ -1,35 +1,31 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { IProduct } from '../../types';
+import { IProduct, ValidationError } from '../../types';
 import { RootState } from '../../app/store';
 import { createProduct, getOneProduct, getProducts } from './productsThunk';
 
 interface ProductInterface {
   products: IProduct[];
   product: IProduct | null;
-  loadings: {
-    addProductLoading: boolean;
-    getProductLoading: boolean;
-    getOneProductLoading: boolean;
-  },
+  creatingLoading: boolean;
+  createOneProductLoading: boolean;
+  creatingError: ValidationError | null;
   error: boolean;
 }
 
 const initialState: ProductInterface = {
   products: [],
   product: null,
-  loadings: {
-    addProductLoading: false,
-    getProductLoading: false,
-    getOneProductLoading: false,
-  },
+  createOneProductLoading: false,
+  creatingLoading: false,
+  creatingError: null,
   error: false,
 };
 
 export const selectProducts = (state: RootState) => state.products.products;
 export const selectProduct = (state: RootState) => state.products.product;
-export const selectGetProductsLoading = (state: RootState) => state.products.loadings.getProductLoading;
-export const selectOneGetProductsLoading = (state: RootState) => state.products.loadings.getOneProductLoading;
-export const selectAddProductsLoading = (state: RootState) => state.products.loadings.addProductLoading;
+export const selectAddProductsLoading = (state: RootState) => state.products.creatingLoading;
+export const selectCreateError = (state: RootState) => state.products.creatingError;
+export const selectCreateOneProductLoading = (state: RootState) => state.products.createOneProductLoading;
 
 const productsSlice = createSlice({
   name: 'products',
@@ -38,41 +34,41 @@ const productsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getProducts.pending, (state) => {
-        state.loadings.getProductLoading = true;
+        state.creatingLoading = true;
         state.error = false;
       })
       .addCase(getProducts.fulfilled, (state, {payload: products}) => {
         state.products = products;
-        state.loadings.getProductLoading = false;
+        state.creatingLoading = false;
         state.error = false;
       })
       .addCase(getProducts.rejected, (state) => {
-        state.loadings.getProductLoading = false;
+        state.creatingLoading = false;
         state.error = true;
       })
 
       .addCase(getOneProduct.pending, (state) => {
-        state.loadings.getOneProductLoading = true;
+        state.createOneProductLoading = true;
         state.error = false;
       })
       .addCase(getOneProduct.fulfilled, (state, {payload: product}) => {
         state.product = product;
-        state.loadings.getOneProductLoading = false;
+        state.createOneProductLoading = false;
         state.error = false;
       })
       .addCase(getOneProduct.rejected, (state) => {
-        state.loadings.getOneProductLoading = false;
+        state.createOneProductLoading = false;
         state.error = true;
       })
 
       .addCase(createProduct.pending, (state) => {
-        state.loadings.addProductLoading = true;
+        state.creatingLoading = true;
       })
       .addCase(createProduct.fulfilled, (state) => {
-        state.loadings.addProductLoading = false;
+        state.creatingLoading = false;
       })
       .addCase(createProduct.rejected, (state) => {
-        state.loadings.addProductLoading = false;
+        state.creatingLoading = false;
       });
   }
 });

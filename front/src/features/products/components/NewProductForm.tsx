@@ -1,7 +1,6 @@
 import React, { ChangeEvent, useState } from 'react';
 import Grid from '@mui/material/Grid2';
 import {
-  Alert,
   Button,
   FormControl,
   InputLabel,
@@ -15,6 +14,8 @@ import { ProductMutation } from '../../../types';
 import FileFormInput from '../../../components/UI/FileForm/FileFormInput';
 import ButtonSpinner from '../../../components/UI/ButtonSpinner/ButtonSpinner';
 import { categories } from '../../../globalConstants';
+import { useAppSelector } from '../../../app/hooks';
+import { selectCreateError } from '../productsSlice';
 
 export interface Props {
   onSubmit: (post: ProductMutation) => void;
@@ -29,16 +30,10 @@ const NewPostForm: React.FC<Props> = ({onSubmit, isLoading}) => {
     image: null,
     category: '',
   });
-
-  const [alert, setAlert] = useState<string>('');
+  const registerError = useAppSelector(selectCreateError);
 
   const submitFormHandler = (event: React.FormEvent) => {
     event.preventDefault();
-
-    if (state.title.trim().length === 0 && state.description.trim().length === 0 && state.price < 0 && !state.image) {
-      setAlert('All fields are required');
-      return;
-    }
 
     onSubmit({...state});
   };
@@ -61,6 +56,14 @@ const NewPostForm: React.FC<Props> = ({onSubmit, isLoading}) => {
     }
   };
 
+  const getFiledError = (fieldName: string) => {
+    try {
+      return registerError?.errors[fieldName].message;
+    } catch {
+      return undefined;
+    }
+  };
+
   return (
     <form
       onSubmit={submitFormHandler}
@@ -73,7 +76,6 @@ const NewPostForm: React.FC<Props> = ({onSubmit, isLoading}) => {
     >
       <Typography variant="body1" sx={{width: '100%', fontSize: '50px',  color: 'rgba(41,43,42,0.82)', textAlign: 'center'}}>New Product</Typography>
       <Grid container spacing={2} sx={{mx: 'auto', width: '80%'}}>
-        {alert && (<Alert severity="error" sx={{width: '100%' }}>{alert}</Alert>)}
         <Grid size={12}>
           <FormControl fullWidth>
             <InputLabel>Select category for the Product</InputLabel>
@@ -98,6 +100,8 @@ const NewPostForm: React.FC<Props> = ({onSubmit, isLoading}) => {
             name="title"
             value={state.title}
             onChange={inputChangeHandler}
+            error={Boolean(getFiledError('title'))}
+            helperText={getFiledError('title')}
           />
         </Grid>
         <Grid size={12}>
@@ -111,6 +115,8 @@ const NewPostForm: React.FC<Props> = ({onSubmit, isLoading}) => {
             name="description"
             value={state.description}
             onChange={inputChangeHandler}
+            error={Boolean(getFiledError('description'))}
+            helperText={getFiledError('description')}
           />
         </Grid>
         <Grid size={12}>
@@ -125,6 +131,8 @@ const NewPostForm: React.FC<Props> = ({onSubmit, isLoading}) => {
             name="price"
             value={state.price}
             onChange={inputChangeHandler}
+            error={Boolean(getFiledError('price'))}
+            helperText={getFiledError('price')}
           />
         </Grid>
         <Grid size={12}>
