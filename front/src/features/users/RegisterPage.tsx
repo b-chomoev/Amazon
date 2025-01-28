@@ -100,7 +100,7 @@ const RegisterPage = () => {
               id="displayname"
               label="Display Name"
               name="displayname"
-              value={form.displayedname}
+              value={form.displayname}
               onChange={inputChange}
               error={Boolean(getFiledError('displayname'))}
               helperText={getFiledError('displayname')}

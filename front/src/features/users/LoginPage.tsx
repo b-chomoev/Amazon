@@ -104,7 +104,7 @@ const LoginPage = () => {
           </Button>
           <Grid container justifyContent="center">
             <Grid>
-              <Link to="/register">Don't have an account?? Sign up</Link>
+              <Link to="/register">Don't have an account? Sign up</Link>
             </Grid>
           </Grid>
         </Box>

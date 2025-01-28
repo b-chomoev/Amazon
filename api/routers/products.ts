@@ -21,6 +21,7 @@ productsRouter.post('/', auth, imagesUpload.single('image'), async (req, res, ne
             seller: user._id,
             description: expressReq.body.description,
             price: expressReq.body.price,
+            category: expressReq.body.category,
             image: req.file ? 'images' + req.file.filename : null,
         });
 

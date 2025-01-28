@@ -1,9 +1,20 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import Grid from '@mui/material/Grid2';
-import { Alert, Button, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
+import {
+  Alert,
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  TextField,
+  Typography
+} from '@mui/material';
 import { ProductMutation } from '../../../types';
 import FileFormInput from '../../../components/UI/FileForm/FileFormInput';
 import ButtonSpinner from '../../../components/UI/ButtonSpinner/ButtonSpinner';
+import { categories } from '../../../globalConstants';
 
 export interface Props {
   onSubmit: (post: ProductMutation) => void;
@@ -32,20 +43,10 @@ const NewPostForm: React.FC<Props> = ({onSubmit, isLoading}) => {
     onSubmit({...state});
   };
 
-  const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const {name, value} = event.target;
+  const inputChangeHandler = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<string>) => {
     setState(prevState => ({
       ...prevState,
-      [name]: value,
-    }));
-  };
-
-  const selectChangeHandler = (event: React.ChangeEvent<string>) => {
-    const {name, value} = event.target;
-
-    setState(prevState => ({
-      ...prevState,
-      [name]: value,
+      [event.target.name]: event.target.value,
     }));
   };
 
@@ -73,6 +74,21 @@ const NewPostForm: React.FC<Props> = ({onSubmit, isLoading}) => {
       <Typography variant="body1" sx={{width: '100%', fontSize: '50px',  color: 'rgba(41,43,42,0.82)', textAlign: 'center'}}>New Product</Typography>
       <Grid container spacing={2} sx={{mx: 'auto', width: '80%'}}>
         {alert && (<Alert severity="error" sx={{width: '100%' }}>{alert}</Alert>)}
+        <Grid size={12}>
+          <FormControl fullWidth>
+            <InputLabel>Select category for the Product</InputLabel>
+            <Select
+              id="category"
+              variant='outlined'
+              name="category"
+              label='Category'
+              value={state.category}
+              onChange={inputChangeHandler}
+            >
+              {categories.map(category => <MenuItem key={category.id} value={category.id}>{category.title}</MenuItem>)}
+            </Select>
+          </FormControl>
+        </Grid>
         <Grid size={12}>
           <TextField
             sx={{width: '100%'}}
@@ -110,24 +126,6 @@ const NewPostForm: React.FC<Props> = ({onSubmit, isLoading}) => {
             value={state.price}
             onChange={inputChangeHandler}
           />
-        </Grid>
-        <Grid size={12}>
-          <FormControl fullWidth>
-            <InputLabel id="category-label">Category</InputLabel>
-            <Select
-              labelId="category-label"
-              id="category"
-              name="category"
-              value={state.category}
-              onChange={selectChangeHandler}
-              label="Category"
-            >
-              <MenuItem value=""><em>None</em></MenuItem>
-              <MenuItem value="electronics">Office</MenuItem>
-              <MenuItem value="clothing">School</MenuItem>
-              <MenuItem value="books">Books</MenuItem>
-            </Select>
-          </FormControl>
         </Grid>
         <Grid size={12}>
           <FileFormInput

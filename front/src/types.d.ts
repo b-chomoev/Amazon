@@ -45,6 +45,7 @@ export interface IProduct {
   description: string;
   seller: IUser;
   price: number;
+  category: string;
   image: string | null;
 }
 
