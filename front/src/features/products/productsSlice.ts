@@ -7,7 +7,8 @@ interface ProductInterface {
   products: IProduct[];
   product: IProduct | null;
   creatingLoading: boolean;
-  createOneProductLoading: boolean;
+  getOneProductLoading: boolean;
+  getProductLoading: boolean;
   creatingError: ValidationError | null;
   error: boolean;
 }
@@ -15,7 +16,8 @@ interface ProductInterface {
 const initialState: ProductInterface = {
   products: [],
   product: null,
-  createOneProductLoading: false,
+  getOneProductLoading: false,
+  getProductLoading: false,
   creatingLoading: false,
   creatingError: null,
   error: false,
@@ -25,7 +27,8 @@ export const selectProducts = (state: RootState) => state.products.products;
 export const selectProduct = (state: RootState) => state.products.product;
 export const selectAddProductsLoading = (state: RootState) => state.products.creatingLoading;
 export const selectCreateError = (state: RootState) => state.products.creatingError;
-export const selectCreateOneProductLoading = (state: RootState) => state.products.createOneProductLoading;
+export const selectGetOneProductLoading = (state: RootState) => state.products.getOneProductLoading;
+export const selectGetProductLoading = (state: RootState) => state.products.getProductLoading;
 
 const productsSlice = createSlice({
   name: 'products',
@@ -34,30 +37,30 @@ const productsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getProducts.pending, (state) => {
-        state.creatingLoading = true;
+        state.getProductLoading = true;
         state.error = false;
       })
       .addCase(getProducts.fulfilled, (state, {payload: products}) => {
         state.products = products;
-        state.creatingLoading = false;
+        state.getProductLoading = false;
         state.error = false;
       })
       .addCase(getProducts.rejected, (state) => {
-        state.creatingLoading = false;
+        state.getProductLoading = false;
         state.error = true;
       })
 
       .addCase(getOneProduct.pending, (state) => {
-        state.createOneProductLoading = true;
+        state.getOneProductLoading = true;
         state.error = false;
       })
       .addCase(getOneProduct.fulfilled, (state, {payload: product}) => {
         state.product = product;
-        state.createOneProductLoading = false;
+        state.getOneProductLoading = false;
         state.error = false;
       })
       .addCase(getOneProduct.rejected, (state) => {
-        state.createOneProductLoading = false;
+        state.getOneProductLoading = false;
         state.error = true;
       })
 

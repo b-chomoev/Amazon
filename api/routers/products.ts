@@ -78,11 +78,11 @@ productsRouter.delete('/:id', auth, async (req, res, next) => {
         const deletedProduct = await Product.findByIdAndDelete(id);
 
         if (!deletedProduct) {
-            res.status(404).send('Product Found');
+            res.status(404).send('Products Found');
             return;
         }
 
-        res.send('Product was deleted successfully');
+        res.send('Products was deleted successfully');
     } catch (e) {
         next(e);
     }

@@ -10,12 +10,12 @@ import {
   TextField,
   Typography
 } from '@mui/material';
-import { ProductMutation } from '../../../types';
-import FileFormInput from '../../../components/UI/FileForm/FileFormInput';
-import ButtonSpinner from '../../../components/UI/ButtonSpinner/ButtonSpinner';
-import { categories } from '../../../globalConstants';
-import { useAppSelector } from '../../../app/hooks';
-import { selectCreateError } from '../productsSlice';
+import { ProductMutation } from '../../../../types';
+import FileFormInput from '../../../../components/UI/FileForm/FileFormInput';
+import ButtonSpinner from '../../../../components/UI/ButtonSpinner/ButtonSpinner';
+import { categories } from '../../../../globalConstants';
+import { useAppSelector } from '../../../../app/hooks';
+import { selectCreateError } from '../../productsSlice';
 
 export interface Props {
   onSubmit: (post: ProductMutation) => void;

@@ -1,7 +1,7 @@
 import { ProductMutation } from '../types';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
-import NewPostForm from '../features/products/components/NewProductForm';
+import NewPostForm from '../features/products/components/NewProductsForm/NewProductForm';
 import { selectAddProductsLoading } from '../features/products/productsSlice';
 import { createProduct } from '../features/products/productsThunk';
 import { selectUser } from '../features/users/usersSlice';
