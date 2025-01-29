@@ -36,3 +36,10 @@ export const createProduct = createAsyncThunk<void, { product: ProductMutation, 
     await axiosApi.post('/products', formData, {headers: {'Authorization': token}});
   }
 );
+
+export const deleteProduct = createAsyncThunk<void, { id: string, token: string }>(
+  'products/delete',
+  async ({id, token}) => {
+    await axiosApi.delete(`/products/${id}`, {headers: {'Authorization': token}});
+  }
+);

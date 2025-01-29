@@ -148,6 +148,7 @@ const NewPostForm: React.FC<Props> = ({onSubmit, isLoading}) => {
             type="submit"
             disabled={isLoading}
             variant="contained"
+            color='success'
           >
             Create
             {isLoading && <ButtonSpinner/>}

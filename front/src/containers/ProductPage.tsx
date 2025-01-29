@@ -30,7 +30,6 @@ const ProductPage = () => {
     product && (
       <Container sx={{ backgroundColor: '#f5f5f5', borderRadius: '8px', padding: '20px', mt: 4 }}>
         <Card sx={{ display: 'flex', flexWrap: 'wrap', boxShadow: 3, borderRadius: '12px', padding: '20px' }}>
-          {/* Image Section */}
           <CardMedia
             component="img"
             image={mainApiUrl + '/' + product.image}
@@ -45,7 +44,6 @@ const ProductPage = () => {
             }}
           />
 
-          {/* Content Section */}
           <CardContent sx={{ flex: '1', ml: { xs: 0, sm: 3 }, mt: { xs: 2, sm: 0 } }}>
             <Typography variant="h5" fontWeight="bold" gutterBottom>
               {product.title}

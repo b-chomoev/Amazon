@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import { Button, TextField } from '@mui/material';
 import * as React from 'react';
 import Grid from '@mui/material/Grid2';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 
 interface  Props {
   name: string;
@@ -52,13 +53,13 @@ const FileFormInput:React.FC<Props> = ({label, name, getImage}) => {
       </Grid>
       <Grid size={12} sx={{marginTop: '20px'}}>
         <Button
-          sx={{width: '100%'}}
           variant="contained"
-          type="button"
+          type='button'
           onClick={inputActivate}
-          color="success"
+          tabIndex={-1}
+          startIcon={<CloudUploadIcon />}
         >
-          Get file
+          Upload files
         </Button>
       </Grid>
     </>

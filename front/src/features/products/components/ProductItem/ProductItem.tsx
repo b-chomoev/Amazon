@@ -5,6 +5,9 @@ import noimg from '../../../../../public/no-picture.png';
 import { mainApiUrl } from '../../../../globalConstants';
 import { AspectRatio, Card, CardContent, CardOverflow } from '@mui/joy';
 import { Box, Button, Typography } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { useAppDispatch } from '../../../../app/hooks';
+import { deleteProduct, getProducts } from '../../productsThunk';
 
 interface Props {
   product: IProduct;
@@ -12,11 +15,17 @@ interface Props {
 
 const ProductItem: React.FC<Props> = ({product}) => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   let productImage = noimg;
 
   if (product.image) {
     productImage = mainApiUrl + '/' + product.image;
   }
+
+  const deleteOneProduct = async () => {
+    await dispatch(deleteProduct({id: product._id, token: product.seller.token}));
+    await dispatch(getProducts());
+  };
 
   return (
     <>
@@ -55,7 +64,7 @@ const ProductItem: React.FC<Props> = ({product}) => {
               variant="text"
               onClick={() => navigate(`/products/${product._id}`)}
               sx={{
-                color: 'green',
+                color: 'rgb(49,172,239)',
                 fontSize: '16px',
                 display: 'flex',
                 justifyContent: 'start',
@@ -77,6 +86,7 @@ const ProductItem: React.FC<Props> = ({product}) => {
             >
               Price: <b>{product.price}$</b>
             </Typography>
+            <Button variant='contained' startIcon={<DeleteIcon />} color='error' onClick={deleteOneProduct}>Delete</Button>
           </Box>
         </CardContent>
       </Card>
