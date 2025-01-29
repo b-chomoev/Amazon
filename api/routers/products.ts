@@ -37,7 +37,7 @@ productsRouter.post('/', auth, imagesUpload.single('image'), async (req, res, ne
 
 productsRouter.get('/', async (req, res, next) => {
     try {
-        const products = await Product.find().populate('seller', 'displayname');
+        const products = await Product.find().populate('seller', 'displayname phone');
         res.send(products);
     } catch (e) {
         next(e);
@@ -53,7 +53,7 @@ productsRouter.get('/:id', async (req, res, next) => {
     }
 
     try {
-        const product = await Product.findById(id).populate('seller', 'displayname');
+        const product = await Product.findById(id).populate('seller', 'displayname phone');
 
         if (!product) {
             res.status(404).send('Not Found');
